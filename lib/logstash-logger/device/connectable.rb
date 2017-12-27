@@ -44,6 +44,8 @@ module LogStashLogger
 
         @buffer_logger = opts[:buffer_logger]
 
+        @buffer_on_full_callback = opts[:buffer_on_full_callback]
+
         buffer_initialize(
           max_items: @buffer_max_items,
           max_interval: @buffer_max_interval,
@@ -70,6 +72,7 @@ module LogStashLogger
 
       def on_full_buffer_receive(data)
         log_warning("Buffer Full - #{data}")
+        @buffer_on_full_callback.call(@pending_items)
       end
 
       def close(opts = {})
