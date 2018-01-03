@@ -72,7 +72,7 @@ module LogStashLogger
 
       def on_full_buffer_receive(data)
         log_warning("Buffer Full - #{data}")
-        @buffer_on_full_callback.call(@pending_items)
+        @buffer_on_full_callback.call(data)
       end
 
       def close(opts = {})
